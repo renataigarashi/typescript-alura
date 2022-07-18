@@ -5,16 +5,17 @@ export class Negociacao {
    
 
     constructor(
-        public readonly data: Date, 
+        private _data: Date, 
         public readonly quantidade: number, 
         public readonly valor: number
         ){}
 
     //como quero retornas os dados, posso apagar os dados do get e no construtor tonar public e colocar readonly
 
-    // get data(): Date {
-    //     return this._data;
-    // }
+    get data(): Date {
+        const data = new Date(this._data.getTime());
+        return data;
+    }
 
     // get quantidade(): number{
     //     return this._quantidade;
