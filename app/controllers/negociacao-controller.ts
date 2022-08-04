@@ -17,18 +17,20 @@ export class NegociacaoController {
         this.inputValor = document.querySelector('#valor');
 
     }
-    adiciona(): void{
+    public adiciona(): void{
         const negociacao = this.criaNegociacao();
-        this.negociacoes.adiciona(negociacao);
-        const negociacoes =  this.negociacoes.lista();      
-        this.negociacoesView.update(this.negociacoes);
-        this.mensagemView.update('Negociação adicionada com sucesso!');
-        console.log(negociacoes);
-        this.limparFormulário();
+        // getDay são os dias da semana, começa no 0 (domingo) e vai até 6 (sabado)
+        if(negociacao.data.getDay() > 0 && negociacao.data.getDay() < 6) { // vai salvar os dados dos dias uteis
+          this.negociacoes.adiciona(negociacao);    
+          this.limparFormulário();
+          this.atualizarView();
+        } else {
+          this.mensagemView.update("Apenas negociações em dias úteis são aceitas")
+        }
 
     }
 
-    criaNegociacao(): Negociacao {
+    private criaNegociacao(): Negociacao {
         const exp = /-/g; //encontrar o hifen e o 'g' é de global, pra encontrar todos os hifens
         const date = new Date(this.inputData.value.replace(exp, ','))
         const quantidade = parseInt(this.inputQuantidade.value);
@@ -37,11 +39,16 @@ export class NegociacaoController {
 
     }
 
-    limparFormulário(): void{
+    private limparFormulário(): void{
         this.inputData.value= '';
         this.inputQuantidade.value = '';
         this.inputValor.value = '';
         this.inputData.focus();
+    }
+
+    private atualizarView(): void {
+      this.negociacoesView.update(this.negociacoes);
+      this.mensagemView.update('Negociação adicionada com sucesso!');
     }
 
 }
