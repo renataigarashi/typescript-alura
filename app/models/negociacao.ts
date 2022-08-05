@@ -17,6 +17,14 @@ export class Negociacao {
         return data;
     }
 
+    public static criaDe(dataString: string, quantidadeString: string, valorString: string): Negociacao {
+        const exp = /-/g; //encontrar o hifen e o 'g' é de global, pra encontrar todos os hifens
+        const date = new Date(dataString.replace(exp, ','))
+        const quantidade = parseInt(quantidadeString);
+        const valor = parseFloat(valorString);
+        return new Negociacao(date, quantidade, valor)
+    }
+
     // get quantidade(): number{
     //     return this._quantidade;
     // }

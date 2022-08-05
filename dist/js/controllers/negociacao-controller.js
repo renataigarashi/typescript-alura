@@ -13,7 +13,7 @@ export class NegociacaoController {
         this.inputValor = document.querySelector('#valor');
     }
     adiciona() {
-        const negociacao = this.criaNegociacao();
+        const negociacao = Negociacao.criaDe(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
         if (!this.ehDiaUtil(negociacao.data)) {
             this.mensagemView.update("Apenas negociações em dias úteis são aceitas");
             return;
@@ -26,13 +26,6 @@ export class NegociacaoController {
         // getDay são os dias da semana, começa no 0 (domingo) e vai até 6 (sabado)
         return data.getDay() > DiasDaSemana.DOMINGO && data.getDay() < DiasDaSemana.SABADO;
         // vai validar os dias uteis
-    }
-    criaNegociacao() {
-        const exp = /-/g; //encontrar o hifen e o 'g' é de global, pra encontrar todos os hifens
-        const date = new Date(this.inputData.value.replace(exp, ','));
-        const quantidade = parseInt(this.inputQuantidade.value);
-        const valor = parseFloat(this.inputValor.value);
-        return new Negociacao(date, quantidade, valor);
     }
     limparFormulário() {
         this.inputData.value = '';
