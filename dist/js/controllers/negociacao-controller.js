@@ -23,9 +23,7 @@ export class NegociacaoController {
         this.atualizarView();
     }
     ehDiaUtil(data) {
-        // getDay são os dias da semana, começa no 0 (domingo) e vai até 6 (sabado)
         return data.getDay() > DiasDaSemana.DOMINGO && data.getDay() < DiasDaSemana.SABADO;
-        // vai validar os dias uteis
     }
     limparFormulário() {
         this.inputData.value = '';
